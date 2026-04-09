@@ -1,18 +1,15 @@
 import streamlit as st
+
 st.set_page_config(
     page_title="Mécroyance Lab",
     page_icon="🧠",
     layout="wide"
 )
+
 st.image("banner1.png", use_container_width=True)
 st.title("🧠 Mécroyance Lab")
 st.caption("Spectre cognitif et dynamique de la mécroyance")
-import streamlit as st
-st.set_page_config(
-    page_title="Mécroyance App",
-    page_icon="🧠",
-    layout="wide"
-)
+
 
 class Cognition:
     def __init__(self, gnosis: float, nous: float, doxa: float):
@@ -154,9 +151,6 @@ def render_life_bar(m_value: float):
     </div>
     """, unsafe_allow_html=True)
 
-
-st.title("🧠 Mécroyance App")
-st.caption("Une petite boussole pour voir où se tient la cognition sur son fil tendu.")
 
 col1, col2, col3 = st.columns(3)
 with col1:
