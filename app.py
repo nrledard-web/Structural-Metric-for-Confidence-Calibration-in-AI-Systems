@@ -40,10 +40,7 @@ class Cognition:
         self.M = self.compute_mecroyance()
 
     def __repr__(self) -> str:
-        return (
-            f"Cognition(G={self.G:.1f}, N={self.N:.1f}, "
-            f"D={self.D:.1f}, M={self.M:.1f})"
-        )
+        return f"Cognition(G={self.G:.1f}, N={self.N:.1f}, D={self.D:.1f}, M={self.M:.1f})"
 
 
 class CognitiveAgent(Cognition):
@@ -61,12 +58,16 @@ class CognitiveAgent(Cognition):
         return self.M, self.interpret()
 
 
-# Exemples d'utilisation
-scenarios = {
-    "complotiste": Cognition(2, 2, 8),
-    "professionnel_technique": Cognition(7, 8, 6),
-    "scientifique_autocorrectif": Cognition(9, 9, 2),
-}
+def main():
+    scenarios = {
+        "complotiste": Cognition(2, 2, 8),
+        "professionnel_technique": Cognition(7, 8, 6),
+        "scientifique_autocorrectif": Cognition(9, 9, 2),
+    }
 
-for nom, c in scenarios.items():
-    print(f"{nom.upper()} → M={c.M:.1f} | {c.interpret()}")
+    for nom, c in scenarios.items():
+        print(f"{nom.upper()} → M={c.M:.1f} | {c.interpret()}")
+
+
+if __name__ == "__main__":
+    main()
