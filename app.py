@@ -5,12 +5,10 @@ st.set_page_config(
     page_icon="🧠",
     layout="wide"
 )
-
 st.image("banner.png", use_container_width=True)
 st.title("🧠 Mécroyance Lab")
 st.caption("Spectre cognitif et dynamique de la mécroyance")
 import streamlit as st
-
 st.set_page_config(
     page_title="Mécroyance App",
     page_icon="🧠",
