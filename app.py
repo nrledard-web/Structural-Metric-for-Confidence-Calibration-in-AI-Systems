@@ -1,3 +1,5 @@
+import streamlit as st
+
 class Cognition:
     def __init__(self, gnosis: float, nous: float, doxa: float):
         self.G = self.clamp(gnosis)
@@ -7,16 +9,13 @@ class Cognition:
 
     @staticmethod
     def clamp(value: float, min_val: float = 0.0, max_val: float = 10.0) -> float:
-        """Force la valeur à rester dans l’échelle 0–10."""
         return max(min_val, min(max_val, value))
 
     def compute_mecroyance(self) -> float:
-        """Calcule M selon la formule qualitative : (G + N) − D."""
         return (self.G + self.N) - self.D
 
     def interpret(self) -> str:
         m = self.M
-
         if m < 0:
             return "Zone de clôture cognitive : la certitude excède l’ancrage cognitif."
         elif 0 <= m <= 10:
@@ -32,42 +31,13 @@ class Cognition:
         else:
             return "Valeur hors spectre théorique."
 
-    def update(self, delta_G: float = 0.0, delta_N: float = 0.0, delta_D: float = 0.0):
-        """Ajuste les variables cognitives puis recalcule M."""
-        self.G = self.clamp(self.G + delta_G)
-        self.N = self.clamp(self.N + delta_N)
-        self.D = self.clamp(self.D + delta_D)
-        self.M = self.compute_mecroyance()
+st.title("Mécroyance App")
 
-    def __repr__(self) -> str:
-        return f"Cognition(G={self.G:.1f}, N={self.N:.1f}, D={self.D:.1f}, M={self.M:.1f})"
+g = st.slider("Gnosis (G)", 0.0, 10.0, 5.0)
+n = st.slider("Nous (N)", 0.0, 10.0, 5.0)
+d = st.slider("Doxa (D)", 0.0, 10.0, 5.0)
 
+c = Cognition(g, n, d)
 
-class CognitiveAgent(Cognition):
-    def feedback(self, success: bool):
-        """
-        Ajuste la doxa selon le retour d’expérience :
-        - succès : légère consolidation
-        - échec : baisse plus forte de la certitude pour rouvrir la révision
-        """
-        if success:
-            self.update(delta_D=0.2)
-        else:
-            self.update(delta_D=-0.5)
-
-        return self.M, self.interpret()
-
-
-def main():
-    scenarios = {
-        "complotiste": Cognition(2, 2, 8),
-        "professionnel_technique": Cognition(7, 8, 6),
-        "scientifique_autocorrectif": Cognition(9, 9, 2),
-    }
-
-    for nom, c in scenarios.items():
-        print(f"{nom.upper()} → M={c.M:.1f} | {c.interpret()}")
-
-
-if __name__ == "__main__":
-    main()
+st.metric("M", round(c.M, 2))
+st.write(c.interpret())
