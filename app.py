@@ -6,7 +6,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.image("banner1.png", use_container_width=True)
+st.image("Banner1.png", use_container_width=True)
 st.title("🧠 Mécroyance Lab")
 st.caption("Spectre cognitif et dynamique de la mécroyance")
 
